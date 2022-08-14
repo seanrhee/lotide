@@ -1,8 +1,8 @@
-const assertArraysEqual = function(arr1, arr2) {
-  // 1. determine which arr is longer
-  // 2. loop through the number of element in longer array
-  // 3. compare whether or not arr1[i] === arr2[i]
-  // 4. arr1[i] !== arr2[i], set output to false and print failed message, otherwise continue loop
+const eqArrays = function(arr1, arr2) {
+  // 1. loop through the number of element in arr1
+  // 2. compare whether or not arr1[i] === arr2[i]
+  // 3. if true, set output to true .. else, set output to false
+  // 4. return output
 
   let longerArray;
 
@@ -15,17 +15,23 @@ const assertArraysEqual = function(arr1, arr2) {
   let output = true;
 
   for (let i = 0; i < longerArray.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      output = false;
-      console.log(`Assertion Failed: [${arr1}] !== [${arr2}]`);
-      break;
+    if (arr1[i] === arr2[i]) {
+      output = true;
+    } else {
+      return false;
     }
   }
   
-  if (output) {
-    console.log(`Assertion Passed: [${arr1}] === [${arr2}]`);
-  }
+  return output;
 };
 
 
-assertArraysEqual([1,2,3,4],[1,2,3,4]);
+const assertArraysEqual = function(arr1, arr2) {
+  if (eqArrays(arr1, arr2)) {
+    console.log(`Assertion Passed: [${arr1}] === [${arr2}]`);
+  } else {
+    console.log(`Assertion Failed: [${arr1}] !== [${arr2}]`);
+  }
+};
+
+assertArraysEqual([1,2,3],[1,2,3,4]);
