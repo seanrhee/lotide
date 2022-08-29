@@ -1,29 +1,25 @@
-// FUNCTION IMPLEMENTATION
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`Assertion Passed: ${actual} === ${expected}`);
-  }else{
-    console.log(`Assertion Failed: ${actual} !== ${expected}`);
-  }
-};
-
 // allItems: an array of strings that we need to look through
 // itemsToCount: an object specifying what to count
 const countOnly = function(allItems, itemsToCount) {
+  // create empty object
   const results = {}
 
+  // loop through the array
   for (const item of allItems){
-    console.log(item);
-
+    // if item exists as a key in itemsToCount
     if (itemsToCount[item]){
+      // if item exists as a key in results
       if (results[item]){
+        // add one to its value
         results[item] += 1;
       } else {
+        // if it doesn't exist as a key, set the value of the key to 1
         results[item] = 1;
       }
     }
   }
 
+  // return object
   return results;
 }
 
@@ -45,3 +41,5 @@ const countOnly = function(allItems, itemsToCount) {
 // assertEqual(result1["Karima"], undefined);
 // assertEqual(result1["Fang"], 2);
 // assertEqual(result1["Agouhanna"], undefined);
+
+module.exports = countOnly;

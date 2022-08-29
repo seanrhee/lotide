@@ -1,23 +1,4 @@
-const eqObjects = function(object1, object2) {
-  // check if objects have same # of keys
-  if (Object.keys(object1).length !== Object.keys(object2).length) {
-    return false;  
-  }
-
-  for (const key of Object.keys(object1)) {
-    if (Array.isArray(object1[key])){
-      if (!eqArrays(object1[key], object2[key])) {
-        return false;
-      }
-    } else {
-      if (object1[key] !== object2[key]) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-};
+const eqObjects = require('./index').eqObjects;
 
 const assertObjectsEqual = function(obj1, obj2) {
 

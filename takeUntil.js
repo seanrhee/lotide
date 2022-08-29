@@ -1,7 +1,6 @@
 const takeUntil = function(array, callback) {
   const output = [];
   for (const item of array) {
-    console.log(item);
     if(!callback(item)) {
       output.push(item);
     } else {
