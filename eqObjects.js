@@ -43,25 +43,31 @@ const eqObjects = function(object1, object2) {
   }
 
   for (const key of Object.keys(object1)) {
-    if (Array.isArray(object1[key])) {
-      return eqArrays(object1[key], object2[key]);
-    } else if (typeof object1[key] === 'object') {
+    console.log(object1[key], object2[key]);
+    if (typeof object1[key] === 'object') {
+      if (Array.isArray(object1[key])) {
+        if (!eqArrays(object1[key], object2[key])) {
+          return false;
+        }
+      }
       console.log("Recursing")
-      return eqObjects(object1[key], object2[key]);
-    }
-
-    if (object1[key] !== object2[key]) {
-      return false;
+      if (!eqObjects(object1[key], object2[key])) {
+        return false;
+      };
+    } else {
+      if (object1[key] !== object2[key]) {
+        return false;
+      }
     }
   }
 
   return true;
 };
 
-// const ab = { a: "1", b: "2" };
-// const ba = { b: "2", a: "1" };
+// const ab = { a: "1", b: "2", c: "4" };
+// const ba = { b: "2", a: "1", c: "4" };
 // console.log(eqObjects(ab, ba)); // => true
 
-// console.log(eqObjects({ a: { z: [1,2] }, b: 2 }, { a: { z: [1] }, b: 2})) // => true
+// console.log(eqObjects({ a: { z: 1 }, b: {d:2} }, { a: { z: 1 }, b: {d:2}, c: 1})) // => true
 // console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1, y: 0 }, b: 2 })) // => false
 // console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 })) // => false
