@@ -76,3 +76,5 @@ const eqObjects = function(object1, object2) {
 // console.log(eqObjects({ a: { z: 1 }, b: {d:2} }, { a: { z: 1 }, b: {d:2}, c: 1})) // => true
 // console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1, y: 0 }, b: 2 })) // => false
 // console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 })) // => false
+
+module.exports = eqObjects;
