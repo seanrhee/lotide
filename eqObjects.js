@@ -34,8 +34,8 @@ const eqArrays = function(arr1, arr2) {
   return output;
 };
 
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
+// // Returns true if both objects have identical keys with identical values.
+// // Otherwise you get back a big fat false!
 const eqObjects = function(object1, object2) {
   // check if objects have same # of keys
   if (Object.keys(object1).length !== Object.keys(object2).length) {
@@ -43,30 +43,25 @@ const eqObjects = function(object1, object2) {
   }
 
   for (const key of Object.keys(object1)) {
-    if (Array.isArray(object1[key])){
-      if (!eqArrays(object1[key], object2[key])) {
-        return false;
-      }
-    } else {
-      if (object1[key] !== object2[key]) {
-        return false;
-      }
+    if (Array.isArray(object1[key])) {
+      return eqArrays(object1[key], object2[key]);
+    } else if (typeof object1[key] === 'object') {
+      console.log("Recursing")
+      return eqObjects(object1[key], object2[key]);
+    }
+
+    if (object1[key] !== object2[key]) {
+      return false;
     }
   }
 
   return true;
 };
 
-// const ab = { a: "1", b: "2", c: "3" };
-// const ba = { b: "2", a: "1", d: "3" };
-// assertEqual(eqObjects(ab, ba), true); // => true
+// const ab = { a: "1", b: "2" };
+// const ba = { b: "2", a: "1" };
+// console.log(eqObjects(ab, ba)); // => true
 
-// const abc = { a: "1", b: "2", c: "3"};
-// assertEqual(eqObjects(ab, abc), true); // => false
-
-// const cd = { c: "1", d: ["2", 4, 3] };
-// const dc = { d: ["2", 3], c: "1" };
-// console.log(eqObjects(cd, dc)); // => true
-
-// const cd2 = { c: "1", d: ["2", 3, 4] };
-// console.log(eqObjects(cd, cd2)); // => false
+// console.log(eqObjects({ a: { z: [1,2] }, b: 2 }, { a: { z: [1] }, b: 2})) // => true
+// console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1, y: 0 }, b: 2 })) // => false
+// console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 })) // => false
