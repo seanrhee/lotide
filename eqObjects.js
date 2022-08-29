@@ -42,25 +42,30 @@ const eqObjects = function(object1, object2) {
     return false;  
   }
 
+  // loop through keys
   for (const key of Object.keys(object1)) {
-    console.log(object1[key], object2[key]);
+    // check if value of key is a type 'object'
     if (typeof object1[key] === 'object') {
+      // check if value of key is an array
       if (Array.isArray(object1[key])) {
+        // run eqArrays, and if it returns false, the program also returns false
         if (!eqArrays(object1[key], object2[key])) {
           return false;
         }
       }
-      console.log("Recursing")
+      // recursion here. if it returns false, program also returns false
       if (!eqObjects(object1[key], object2[key])) {
         return false;
       };
     } else {
+      // check if values of key are the same
       if (object1[key] !== object2[key]) {
         return false;
       }
     }
   }
 
+  // if we made it here, then return true
   return true;
 };
 
