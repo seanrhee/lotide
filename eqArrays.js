@@ -8,38 +8,40 @@ const assertEqual = function(actual, expected) {
 };
 
 const eqArrays = function(arr1, arr2) {
-  // 1. loop through the number of element in arr1
-  // 2. compare whether or not arr1[i] === arr2[i]
-  // 3. if true, set output to true .. else, set output to false
-  // 4. return output
-
-  let longerArray;
-
-  if (arr1.length > arr2.length) {
-    longerArray = arr1;
-  } else {
-    longerArray = arr2;
+  // check if both arrays have same length
+  if (arr1.length !== arr2.length) {
+    return false;
   }
 
-  let output = true;
-
-  for (let i = 0; i < longerArray.length; i++) {
-    if (arr1[i] === arr2[i]) {
-      output = true;
+  // loop each element
+  for (let i = 0; i < arr1.length; i++) {
+    // if element is an Array
+    if (Array.isArray(arr1[i])) {
+      // recursion here. if recursion returns false, program returns false
+      if (!eqArrays(arr1[i], arr2[i])){
+        return false;
+      };
     } else {
-      return false;
+      // check if element is the same
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
     }
   }
-  
-  
-  return output;
+  // if program hasn't returned false above, return true
+  return true;
 };
 
 
-console.log(eqArrays([1, 2, 3], [1, 2, 3])); // => true
-console.log(eqArrays([1, 2, 3], [3, 2, 3])); // => false
+// console.log(eqArrays([1, 2, 3], [1, 2, 3])); // => true
+// console.log(eqArrays([1, 2, 3], [3, 2, 3])); // => false
 
-console.log(eqArrays(["1", "2", "3"], ["1", "2", "3"])); // => true
-console.log(eqArrays(["1", "2", "3"], ["1", "2", 3])); // => false
+// console.log(eqArrays(["1", "2", "3"], ["1", "2", "3"])); // => true
+// console.log(eqArrays(["1", "2", "3"], ["1", "2", 3])); // => false
 
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => should PASS
+// assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => should PASS
+
+
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4]])) // => true
+console.log(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]]))// => false
+console.log(eqArrays([[2, 3], [4]], [[2, 3], 4]))// => false
